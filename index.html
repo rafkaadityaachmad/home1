@@ -1,1 +1,907 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <title>Rafka Aditya | Network Engineering Specialist</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+        }
 
+        body {
+            background: linear-gradient(135deg, #0a1520 0%, #0c2438 50%, #081425 100%);
+            color: #e6f2ff;
+            line-height: 1.7;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Background Network Pattern */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                radial-gradient(circle at 15% 25%, rgba(0, 150, 255, 0.1) 0%, transparent 25%),
+                radial-gradient(circle at 85% 75%, rgba(0, 200, 255, 0.1) 0%, transparent 25%),
+                linear-gradient(90deg, transparent 49.5%, rgba(0, 120, 255, 0.05) 50%, transparent 50.5%),
+                linear-gradient(transparent 49.5%, rgba(0, 120, 255, 0.05) 50%, transparent 50.5%);
+            background-size: 100% 100%, 100% 100%, 60px 60px, 60px 60px;
+            z-index: -2;
+            pointer-events: none;
+        }
+
+        /* Animated Network Lines */
+        .network-lines {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
+            overflow: hidden;
+        }
+
+        .network-line {
+            position: absolute;
+            background: linear-gradient(90deg, transparent, rgba(0, 200, 255, 0.3), transparent);
+            height: 1px;
+            animation: lineFlow 10s linear infinite;
+        }
+
+        @keyframes lineFlow {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100vw); }
+        }
+
+        header {
+            padding: 100px 20px 70px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header-tech-icons {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+            z-index: 0;
+            opacity: 0.3;
+        }
+
+        .tech-icon {
+            position: absolute;
+            font-size: 2.5rem;
+            color: rgba(0, 180, 255, 0.3);
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(5deg); }
+        }
+
+        .header-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        header h1 {
+            font-size: 3.5rem;
+            letter-spacing: 3px;
+            margin-bottom: 15px;
+            background: linear-gradient(90deg, #00d4ff, #0088ff, #00d4ff);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 5px 25px rgba(0, 132, 255, 0.4);
+            animation: gradientShift 3s ease-in-out infinite;
+        }
+
+        @keyframes gradientShift {
+            0%, 100% { background-position: 0% center; }
+            50% { background-position: 100% center; }
+        }
+
+        .title-icon {
+            color: #00d4ff;
+            margin-right: 20px;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        .tagline {
+            margin-top: 15px;
+            font-size: 1.4rem;
+            color: #b3e0ff;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            padding: 0 20px;
+            font-weight: 300;
+        }
+
+        .network-animation-container {
+            width: 400px;
+            height: 100px;
+            margin: 40px auto;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .network-node {
+            position: absolute;
+            width: 12px;
+            height: 12px;
+            background: #00d4ff;
+            border-radius: 50%;
+            box-shadow: 0 0 15px #00d4ff;
+        }
+
+        .network-connection {
+            position: absolute;
+            height: 2px;
+            background: linear-gradient(90deg, rgba(0, 212, 255, 0.3), rgba(0, 212, 255, 0.8), rgba(0, 212, 255, 0.3));
+            transform-origin: left center;
+        }
+
+        section {
+            padding: 50px 8%;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+            position: relative;
+        }
+
+        .section-title h2 {
+            font-size: 2.5rem;
+            color: #00d4ff;
+            display: inline-block;
+            padding-bottom: 15px;
+        }
+
+        .section-title h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: linear-gradient(90deg, transparent, #00d4ff, transparent);
+        }
+
+        .cards-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+            gap: 35px;
+            margin-bottom: 80px;
+        }
+
+        .card {
+            background: rgba(12, 28, 45, 0.85);
+            border-radius: 18px;
+            padding: 35px 30px;
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            cursor: pointer;
+            border: 1px solid rgba(0, 150, 255, 0.25);
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(12px);
+            box-shadow: 0 10px 30px rgba(0, 40, 80, 0.3);
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, #00d4ff, #0088ff, #00d4ff);
+            background-size: 200% 100%;
+            animation: gradientShift 3s ease infinite;
+        }
+
+        .card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            transition: left 0.7s;
+        }
+
+        .card:hover {
+            transform: translateY(-15px) scale(1.02);
+            box-shadow: 0 20px 40px rgba(0, 100, 255, 0.3);
+            border-color: rgba(0, 200, 255, 0.6);
+        }
+
+        .card:hover::after {
+            left: 100%;
+        }
+
+        .card h3 {
+            margin-bottom: 20px;
+            color: #00d4ff;
+            font-size: 1.6rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .card-icon {
+            margin-right: 15px;
+            font-size: 1.5rem;
+            background: rgba(0, 180, 255, 0.15);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .card p {
+            color: #c2e5ff;
+            margin-bottom: 20px;
+            font-size: 1.05rem;
+            line-height: 1.8;
+        }
+
+        .experience-detail {
+            display: none;
+            margin-top: 20px;
+            color: #e0f2ff;
+            border-top: 1px solid rgba(0, 150, 255, 0.3);
+            padding-top: 20px;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .experience-detail ul {
+            list-style: none;
+        }
+
+        .experience-detail li {
+            margin-bottom: 15px;
+            padding-left: 30px;
+            position: relative;
+        }
+
+        .experience-detail li::before {
+            content: '▸';
+            position: absolute;
+            left: 0;
+            color: #00d4ff;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        .tech-badge {
+            display: inline-block;
+            background: rgba(0, 150, 255, 0.15);
+            color: #80d0ff;
+            padding: 5px 15px;
+            border-radius: 20px;
+            margin: 5px 8px 5px 0;
+            font-size: 0.9rem;
+            border: 1px solid rgba(0, 180, 255, 0.3);
+        }
+
+        .contact-section {
+            background: rgba(8, 22, 40, 0.9);
+            border-radius: 20px;
+            padding: 60px 50px;
+            margin-top: 60px;
+            text-align: center;
+            border: 1px solid rgba(0, 150, 255, 0.3);
+            box-shadow: 0 15px 35px rgba(0, 40, 80, 0.4);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .contact-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, #00d4ff, #0088ff, #00d4ff);
+            background-size: 200% 100%;
+            animation: gradientShift 3s ease infinite;
+        }
+
+        .contact-section h2 {
+            color: #00d4ff;
+            margin-bottom: 40px;
+            font-size: 2.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .contact-icon-title {
+            margin-right: 15px;
+            font-size: 2.2rem;
+        }
+
+        .contact-container {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 50px;
+            margin-top: 30px;
+        }
+
+        .contact-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: rgba(12, 35, 60, 0.7);
+            border-radius: 16px;
+            padding: 35px 30px;
+            width: 320px;
+            transition: all 0.4s;
+            border: 1px solid rgba(0, 150, 255, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .contact-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, #00d4ff, #0088ff);
+        }
+
+        .contact-item:hover {
+            transform: translateY(-12px) scale(1.03);
+            box-shadow: 0 20px 40px rgba(0, 100, 255, 0.25);
+            border-color: rgba(0, 200, 255, 0.5);
+        }
+
+        .contact-icon {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            color: #00d4ff;
+            transition: all 0.4s;
+        }
+
+        .contact-text {
+            margin-top: 10px;
+            font-size: 1.2rem;
+            color: #c2e5ff;
+        }
+
+        .contact-link {
+            color: #00d4ff;
+            text-decoration: none;
+            margin-top: 12px;
+            font-weight: 700;
+            transition: all 0.3s;
+            word-break: break-all;
+            font-size: 1.3rem;
+            display: inline-block;
+            padding: 8px 20px;
+            border-radius: 10px;
+            background: rgba(0, 150, 255, 0.1);
+            border: 1px solid rgba(0, 180, 255, 0.3);
+        }
+
+        .contact-link:hover {
+            color: #a3e8ff;
+            background: rgba(0, 180, 255, 0.2);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 150, 255, 0.2);
+        }
+
+        .tech-stack {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 25px;
+            margin: 50px 0 30px;
+        }
+
+        .tech-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 100px;
+            height: 100px;
+            background: rgba(15, 40, 70, 0.7);
+            border-radius: 20px;
+            transition: all 0.4s;
+            border: 1px solid rgba(0, 150, 255, 0.2);
+        }
+
+        .tech-item:hover {
+            transform: translateY(-10px) rotate(5deg);
+            box-shadow: 0 15px 30px rgba(0, 100, 255, 0.25);
+            background: rgba(20, 60, 100, 0.8);
+        }
+
+        .tech-item i {
+            font-size: 2.8rem;
+            color: #00d4ff;
+            margin-bottom: 10px;
+        }
+
+        .tech-item span {
+            font-size: 0.9rem;
+            color: #a3d5ff;
+            font-weight: 600;
+        }
+
+        footer {
+            text-align: center;
+            padding: 50px 20px 30px;
+            background: rgba(5, 15, 30, 0.95);
+            margin-top: 100px;
+            border-top: 1px solid rgba(0, 150, 255, 0.3);
+            position: relative;
+        }
+
+        footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, #00d4ff, #0088ff, #00d4ff);
+            background-size: 200% 100%;
+            animation: gradientShift 3s ease infinite;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        footer p {
+            color: #b3e0ff;
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+        }
+
+        .footer-quote {
+            font-style: italic;
+            color: #88c1ff;
+            max-width: 800px;
+            margin: 30px auto;
+            padding: 20px;
+            border-left: 4px solid #00d4ff;
+            background: rgba(0, 80, 160, 0.1);
+            border-radius: 0 10px 10px 0;
+        }
+
+        .copyright {
+            color: #88c1ff;
+            font-size: 0.95rem;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(0, 150, 255, 0.2);
+        }
+
+        @media (max-width: 1024px) {
+            .cards-container {
+                grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            }
+            
+            header h1 {
+                font-size: 3rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            header {
+                padding: 80px 20px 50px;
+            }
+            
+            header h1 {
+                font-size: 2.5rem;
+            }
+            
+            .tagline {
+                font-size: 1.2rem;
+            }
+            
+            .cards-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .contact-container {
+                flex-direction: column;
+                align-items: center;
+                gap: 30px;
+            }
+            
+            .contact-item {
+                width: 100%;
+                max-width: 400px;
+            }
+            
+            section {
+                padding: 40px 5%;
+            }
+            
+            .tech-stack {
+                gap: 15px;
+            }
+            
+            .tech-item {
+                width: 85px;
+                height: 85px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            header {
+                padding: 60px 15px 40px;
+            }
+            
+            header h1 {
+                font-size: 2.2rem;
+            }
+            
+            .tagline {
+                font-size: 1.1rem;
+            }
+            
+            .card {
+                padding: 25px 20px;
+            }
+            
+            .contact-section {
+                padding: 40px 25px;
+            }
+            
+            .section-title h2 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<!-- Animated Network Lines -->
+<div class="network-lines" id="networkLines"></div>
+
+<header>
+    <div class="header-tech-icons">
+        <i class="tech-icon fas fa-server" style="top: 20%; left: 10%; animation-delay: 0s;"></i>
+        <i class="tech-icon fas fa-network-wired" style="top: 30%; right: 15%; animation-delay: 1s;"></i>
+        <i class="tech-icon fas fa-wifi" style="bottom: 25%; left: 15%; animation-delay: 2s;"></i>
+        <i class="tech-icon fas fa-satellite" style="bottom: 40%; right: 20%; animation-delay: 3s;"></i>
+        <i class="tech-icon fas fa-shield-alt" style="top: 40%; left: 20%; animation-delay: 4s;"></i>
+    </div>
+    
+    <div class="header-content">
+        <h1><i class="title-icon fas fa-network-wired"></i>Rafka Aditya</h1>
+        
+        <div class="network-animation-container" id="networkAnimation">
+            <!-- Network nodes and connections will be generated by JavaScript -->
+        </div>
+        
+        <p class="tagline">Network Engineering Specialist | Telecommunication Expert | Network Infrastructure Consultant</p>
+    </div>
+</header>
+
+<section>
+    <div class="section-title">
+        <h2><i class="fas fa-user-cog"></i> Profesional Profile</h2>
+    </div>
+    
+    <div class="cards-container">
+        <div class="card">
+            <h3><i class="card-icon fas fa-user-tie"></i> Profil Saya</h3>
+            <p>Network Engineer profesional dengan spesialisasi dalam desain, implementasi, dan optimasi infrastruktur jaringan enterprise dan telekomunikasi.</p>
+            <div class="experience-detail">
+                <p><strong>Nama Lengkap:</strong> Rafka Aditya</p>
+                <p><strong>Usia:</strong> 20 Tahun</p>
+                <p><strong>Bidang Keahlian:</strong> Teknologi Jaringan & Telekomunikasi</p>
+                <p><strong>Lokasi:</strong> Indonesia</p>
+                <p><strong>Spesialisasi:</strong></p>
+                <div>
+                    <span class="tech-badge">Network Infrastructure</span>
+                    <span class="tech-badge">Routing & Switching</span>
+                    <span class="tech-badge">Telecommunication Systems</span>
+                    <span class="tech-badge">Network Security</span>
+                    <span class="tech-badge">Wireless Networking</span>
+                </div>
+                <p><strong>Sertifikasi:</strong> Mikrotik MTCNA, Cisco CCNA (Dalam Persiapan), Network+</p>
+            </div>
+        </div>
+
+        <div class="card">
+            <h3><i class="card-icon fas fa-briefcase"></i> Pengalaman Kerja</h3>
+            <p>Klik untuk melihat detail pengalaman profesional dalam bidang teknologi jaringan dan telekomunikasi.</p>
+            <div class="experience-detail">
+                <ul>
+                    <li><strong>Instruktur & Guru Teknologi Jaringan</strong> - Mengajar konsep dasar hingga lanjutan jaringan komputer, konfigurasi perangkat jaringan, dan troubleshooting jaringan untuk siswa dan profesional.</li>
+                    <li><strong>Network Engineer</strong> - Merancang, mengimplementasikan, dan memelihara infrastruktur jaringan LAN & WAN untuk organisasi skala menengah hingga besar.</li>
+                    <li><strong>Technical Consultant</strong> - Memberikan konsultasi teknis untuk optimalisasi jaringan, peningkatan keamanan, dan perencanaan kapasitas jaringan.</li>
+                    <li><strong>Network Administrator</strong> - Mengelola dan memantau infrastruktur jaringan, melakukan konfigurasi firewall, routing, switching, dan VPN.</li>
+                    <li><strong>Telecommunication Specialist</strong> - Mengimplementasikan solusi telekomunikasi termasuk VoIP, sistem wireless, dan fiber optic networks.</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="card">
+            <h3><i class="card-icon fas fa-tools"></i> Keahlian Teknis</h3>
+            <p>Klik untuk melihat daftar lengkap kompetensi teknis dan teknologi yang dikuasai.</p>
+            <div class="experience-detail">
+                <ul>
+                    <li><strong>Jaringan Komputer</strong> - TCP/IP, LAN/WAN Design, VLAN, STP, EtherChannel, DHCP, DNS, IPv4/IPv6</li>
+                    <li><strong>Routing & Switching</strong> - Mikrotik RouterOS, Cisco IOS/NX-OS, Static & Dynamic Routing (OSPF, EIGRP, BGP), Switching Technologies</li>
+                    <li><strong>Telekomunikasi</strong> - Fiber Optic Networks, Wireless Communication (Wi-Fi, Radio), VoIP Systems, PBX</li>
+                    <li><strong>Keamanan Jaringan</strong> - Firewall Configuration (pfSense, Fortinet), VPN (IPsec, SSL), Network Access Control, Security Policies</li>
+                    <li><strong>Troubleshooting</strong> - Network Diagnostics, Performance Monitoring, Packet Analysis, Network Optimization</li>
+                    <li><strong>Tools & Software</strong> - Wireshark, GNS3, Packet Tracer, PRTG, SolarWinds, Putty, Terminal</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="section-title">
+        <h2><i class="fas fa-microchip"></i> Tech Stack</h2>
+    </div>
+    
+    <div class="tech-stack">
+        <div class="tech-item">
+            <i class="fab fa-cisco"></i>
+            <span>Cisco</span>
+        </div>
+        <div class="tech-item">
+            <i class="fas fa-router"></i>
+            <span>Mikrotik</span>
+        </div>
+        <div class="tech-item">
+            <i class="fas fa-wifi"></i>
+            <span>Wireless</span>
+        </div>
+        <div class="tech-item">
+            <i class="fas fa-broadcast-tower"></i>
+            <span>Telecom</span>
+        </div>
+        <div class="tech-item">
+            <i class="fas fa-shield-alt"></i>
+            <span>Security</span>
+        </div>
+        <div class="tech-item">
+            <i class="fas fa-satellite-dish"></i>
+            <span>Satellite</span>
+        </div>
+        <div class="tech-item">
+            <i class="fas fa-ethernet"></i>
+            <span>Ethernet</span>
+        </div>
+        <div class="tech-item">
+            <i class="fas fa-server"></i>
+            <span>Servers</span>
+        </div>
+    </div>
+</section>
+
+<section class="contact-section">
+    <h2><i class="contact-icon-title fas fa-address-card"></i> Hubungi Saya</h2>
+    <p style="max-width: 800px; margin: 0 auto 30px; font-size: 1.2rem;">Silakan hubungi saya untuk konsultasi jaringan, pelatihan, atau kolaborasi proyek teknologi jaringan dan telekomunikasi</p>
+    
+    <div class="contact-container">
+        <div class="contact-item">
+            <i class="contact-icon fab fa-instagram"></i>
+            <div class="contact-text" style="font-size: 1.3rem; font-weight: 600;">Instagram</div>
+            <a href="https://www.instagram.com/whos.clbs?igsh=MXI0bWNsdXR3dm83dA==" target="_blank" class="contact-link">@whos.clbs</a>
+            <div class="contact-text">Follow untuk update teknologi jaringan terbaru</div>
+        </div>
+        
+        <div class="contact-item">
+            <i class="contact-icon fab fa-whatsapp"></i>
+            <div class="contact-text" style="font-size: 1.3rem; font-weight: 600;">WhatsApp</div>
+            <a href="https://wa.me/6287814530831" target="_blank" class="contact-link">+62 878-1453-0831</a>
+            <div class="contact-text">Konsultasi langsung via WhatsApp</div>
+        </div>
+    </div>
+    
+    <div style="margin-top: 50px;">
+        <h3 style="color: #00d4ff; margin-bottom: 25px; font-size: 1.8rem;"><i class="fas fa-globe-asia"></i> Jangkauan Layanan</h3>
+        <p style="max-width: 900px; margin: 0 auto; color: #c2e5ff; font-size: 1.1rem;">
+            Melayani seluruh wilayah Indonesia untuk implementasi jaringan, konsultasi infrastruktur, pelatihan teknologi jaringan, troubleshooting, dan optimasi performa jaringan.
+        </p>
+    </div>
+</section>
+
+<footer>
+    <div class="footer-content">
+        <p style="font-size: 1.4rem; font-weight: 700; color: #00d4ff;">Rafka Aditya</p>
+        <p style="font-size: 1.3rem; margin-bottom: 10px;">Network Engineering & Telecommunication Specialist</p>
+        
+        <div class="footer-quote">
+            "Teknologi jaringan adalah tulang punggung dunia digital. Dengan infrastruktur yang handal dan aman, kita membangun fondasi untuk inovasi dan konektivitas masa depan."
+        </div>
+        
+        <div class="tech-stack" style="margin: 40px 0;">
+            <div class="tech-item" style="width: 70px; height: 70px;">
+                <i class="fab fa-cisco"></i>
+            </div>
+            <div class="tech-item" style="width: 70px; height: 70px;">
+                <i class="fas fa-network-wired"></i>
+            </div>
+            <div class="tech-item" style="width: 70px; height: 70px;">
+                <i class="fas fa-broadcast-tower"></i>
+            </div>
+            <div class="tech-item" style="width: 70px; height: 70px;">
+                <i class="fas fa-ethernet"></i>
+            </div>
+        </div>
+        
+        <p class="copyright">© 2026 Rafka Aditya | All Rights Reserved | Teknologi Jaringan & Telekomunikasi</p>
+    </div>
+</footer>
+
+<script>
+    // Create animated network lines
+    const networkLines = document.getElementById('networkLines');
+    for (let i = 0; i < 15; i++) {
+        const line = document.createElement('div');
+        line.classList.add('network-line');
+        line.style.top = `${Math.random() * 100}%`;
+        line.style.width = `${Math.random() * 100 + 50}%`;
+        line.style.animationDelay = `${Math.random() * 10}s`;
+        line.style.animationDuration = `${Math.random() * 10 + 5}s`;
+        networkLines.appendChild(line);
+    }
+
+    // Create network animation
+    const networkAnimation = document.getElementById('networkAnimation');
+    const nodes = [];
+    const connections = [];
+
+    // Create nodes
+    for (let i = 0; i < 8; i++) {
+        const node = document.createElement('div');
+        node.classList.add('network-node');
+        
+        // Position nodes in a network-like pattern
+        const angle = (i / 8) * 2 * Math.PI;
+        const radius = 40;
+        const x = 200 + radius * Math.cos(angle);
+        const y = 50 + radius * Math.sin(angle);
+        
+        node.style.left = `${x}px`;
+        node.style.top = `${y}px`;
+        
+        // Add pulsing animation
+        node.style.animation = `pulse ${2 + Math.random() * 2}s infinite`;
+        node.style.animationDelay = `${Math.random() * 2}s`;
+        
+        networkAnimation.appendChild(node);
+        nodes.push({x, y, element: node});
+    }
+
+    // Create connections between nodes
+    for (let i = 0; i < nodes.length; i++) {
+        for (let j = i + 1; j < nodes.length; j++) {
+            // Only connect some nodes (random)
+            if (Math.random() > 0.6) {
+                const node1 = nodes[i];
+                const node2 = nodes[j];
+                
+                const dx = node2.x - node1.x;
+                const dy = node2.y - node1.y;
+                const distance = Math.sqrt(dx * dx + dy * dy);
+                
+                const connection = document.createElement('div');
+                connection.classList.add('network-connection');
+                
+                connection.style.left = `${node1.x}px`;
+                connection.style.top = `${node1.y}px`;
+                connection.style.width = `${distance}px`;
+                connection.style.transform = `rotate(${Math.atan2(dy, dx)}rad)`;
+                
+                // Add flowing animation
+                connection.style.animation = `lineFlow ${3 + Math.random() * 4}s linear infinite`;
+                connection.style.animationDelay = `${Math.random() * 3}s`;
+                
+                networkAnimation.appendChild(connection);
+                connections.push(connection);
+            }
+        }
+    }
+
+    // Card click functionality
+    const cards = document.querySelectorAll('.card');
+    
+    cards.forEach(card => {
+        card.addEventListener('click', () => {
+            const detail = card.querySelector('.experience-detail');
+            const isVisible = detail.style.display === 'block';
+            
+            // Close all other open details
+            document.querySelectorAll('.experience-detail').forEach(d => {
+                d.style.display = 'none';
+                d.parentElement.style.paddingBottom = '35px';
+            });
+            
+            // Toggle current detail
+            if (!isVisible) {
+                detail.style.display = 'block';
+                card.style.paddingBottom = '45px';
+            } else {
+                detail.style.display = 'none';
+                card.style.paddingBottom = '35px';
+            }
+        });
+    });
+
+    // Contact item hover effects
+    const contactItems = document.querySelectorAll('.contact-item');
+    contactItems.forEach(item => {
+        item.addEventListener('mouseenter', function() {
+            const icon = this.querySelector('.contact-icon');
+            icon.style.transform = 'scale(1.3) rotate(10deg)';
+            icon.style.transition = 'all 0.4s';
+            icon.style.color = '#80ddff';
+        });
+        
+        item.addEventListener('mouseleave', function() {
+            const icon = this.querySelector('.contact-icon');
+            icon.style.transform = 'scale(1) rotate(0deg)';
+            icon.style.color = '#00d4ff';
+        });
+    });
+
+    // Tech stack item hover effects
+    const techItems = document.querySelectorAll('.tech-item');
+    techItems.forEach(item => {
+        item.addEventListener('mouseenter', function() {
+            const icon = this.querySelector('i');
+            icon.style.transform = 'scale(1.3)';
+            icon.style.transition = 'transform 0.3s';
+            icon.style.color = '#80ddff';
+        });
+        
+        item.addEventListener('mouseleave', function() {
+            const icon = this.querySelector('i');
+            icon.style.transform = 'scale(1)';
+            icon.style.color = '#00d4ff';
+        });
+    });
+</script>
+
+</body>
+</html>
